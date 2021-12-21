@@ -18,10 +18,16 @@ const userSchema = new mongoose.Schema(  // Scheam is a format or a structure of
            type:String,
            default:"Rwanda"
         },
+        role:{
+            type:String,
+            default:"user",
+            enum:["admin","user"]
+        },
        gender:{
            type:String,
            enum:["male","female","other","not-say"],  //enum list data to be registered inside these data no other data will be rejected
        },
+
 
     },
        {

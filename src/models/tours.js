@@ -36,6 +36,10 @@ const tourSchema = new mongoose.Schema(  // Schema is a format or a structure of
        
        
        tripDescription:String,
+       user:{
+          type:mongoose.Schema.ObjectId,
+          ref:"User",
+       }
          
 
     },
@@ -46,6 +50,13 @@ const tourSchema = new mongoose.Schema(  // Schema is a format or a structure of
     
 
 );
+tourSchema.pre(/^find/,function(next){
+   this.populate({
+      path:"user",
+      select:"lastName email address"
+   });
+   next();
+})
 
 const tour = mongoose.model('Tour',tourSchema)
 

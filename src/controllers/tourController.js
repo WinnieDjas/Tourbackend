@@ -5,6 +5,7 @@ class TourController{
     //create tour in db
 
     static async createTours(req,res){
+        req.body.user=req.user._id;
         const tour= await TourInfos.create(req.body); // return generated data
 
         if(!tour){
