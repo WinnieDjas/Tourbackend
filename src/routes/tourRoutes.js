@@ -1,12 +1,14 @@
 import express from "express"; 
 import TourController from "../controllers/tourController";
 import Validator from "../middlewares/validator";
-
+import verifyToken from "../middlewares/verifyToken";
+import verifyAccess from "../middlewares/verifyAccess";
 
 const tourRouter = express.Router(); //This function express.Router() is used when you want to create a new router object in your program to handle requests.
 
-tourRouter.post(
-    "/createTours", 
+tourRouter.post("/createTours",
+    verifyToken,
+    verifyAccess("admin"),
     Validator.newAccountTourRules(),
     Validator.validateInput,
     TourController.createTours);

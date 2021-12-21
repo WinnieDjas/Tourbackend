@@ -1,13 +1,14 @@
 import express from "express"; // package has role on routing and data management
 import UserController from "../controllers/userController";
-import Validator from "../middlewares/validator"
-import DataChecker from "../middlewares/datachecker"
+import Validator from "../middlewares/validator";
+import DataChecker from "../middlewares/datachecker";
+// import verifyToken from "../middlewares/verifyToken";
 
 
 const userRouter = express.Router();
 
-userRouter.post( //post is for sending data kuri server
-    "/register",
+userRouter.post("/register",
+    // verifyToken,
    Validator.newAccountRules(),
    Validator.validateInput,
    DataChecker.isEmailExist,

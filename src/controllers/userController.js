@@ -1,9 +1,17 @@
 import UserInfos from "../models/user";
 import bcrypt from "bcrypt";
+import TokenAuth from "../helpers/tokenAuth"
 
 class UserController{
       
     //create user in db
+    /** 
+        * Generate
+        * @static
+        * @param {req,res} Req object
+        * @memberof UserController
+        * @return {String} Response
+        */
 
     static async createUser(req,res){
 
@@ -67,7 +75,9 @@ class UserController{
               return res.status(404).json({error:"user not Found! Kindly register first"}) // f(x) which checks/or compare  data hashed  if the writen psw and the hashed psw are the same
           }
           if(bcrypt.compareSync(req.body.password,user.password)){
-            return res.status(200).json({message:"Succefully logged in"});
+            user.password=null;
+            const token = TokenAuth.tokenGenerator({user:user});
+            return res.status(200).json({message:"Succefully logged in", token: token});
             
           }
           return res.status(400).json({error:"Password is wrong"})
