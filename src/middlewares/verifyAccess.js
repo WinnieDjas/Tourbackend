@@ -1,8 +1,8 @@
-
+//
 const verifyAccess=(requiredRole)=>{
 
     return async(req,res,next)=>{
-  // try and catch means try it if there errror it catch it and bring it
+  // try and catch means try it if there is an error it catch it and bring it
         try{
          const {role}=req.user;
          if(requiredRole!=role){
